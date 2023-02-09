@@ -8,6 +8,7 @@ const Stack = createNativeStackNavigator();
 // Import pages
 import Login from './pages/Login/Login';
 import Signup from './pages/Signup/Signup';
+import FlashMessage from 'react-native-flash-message';
 
 
 const App = () => {
@@ -17,7 +18,8 @@ const App = () => {
                 <Stack.Screen name="LoginScreen" component={Login} options={{headerShown:false}}/>
                 <Stack.Screen name="SignupScreen" component={Signup} options={{headerShown:false}}/>
             </Stack.Navigator>
-        </NavigationContainer>
+            <FlashMessage position="top"/>
+        </NavigationContainer>        
     );
 };
 

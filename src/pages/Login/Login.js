@@ -22,7 +22,7 @@ import {icon} from '../../utils/functions';
 const Login = ({navigation}) => {
 
     const handleLogin = (values) => {
-        console.log(validations);
+        console.log(values);
     };
 
 

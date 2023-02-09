@@ -1,10 +1,10 @@
 import React from 'react';
-import {TouchableOpacity,Text} from 'react-native';
+import {TouchableOpacity,Text, ActivityIndicator} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import styles from './CustomButton.style';
 
-const CustomButton = ({title,icon,theme = 'primary',circled,outlined,onPress}) => {
+const CustomButton = ({title,icon,theme = 'primary',circled,outlined,loading,onPress}) => {
     const createButtonStyle = () => {
         if (circled) {
             return styles.circled[theme];
@@ -17,7 +17,7 @@ const CustomButton = ({title,icon,theme = 'primary',circled,outlined,onPress}) =
         }
     };
     return (
-        <TouchableOpacity onPress={onPress} style={createButtonStyle().container}>
+        <TouchableOpacity onPress={onPress} style={createButtonStyle().container} disabled={loading ? true : false}>
             {
                 icon
                 ? <Icon name={icon.name} size={icon.size} color={icon.color} />
@@ -27,6 +27,11 @@ const CustomButton = ({title,icon,theme = 'primary',circled,outlined,onPress}) =
             title
             ? (<Text style={createButtonStyle().title}>{title}</Text>)
             : null
+            }
+            {
+                loading
+                ? (<ActivityIndicator size="small" color={icon.color} style={{marginLeft: 6}}/>)
+                : null
             }
         </TouchableOpacity>
     );
