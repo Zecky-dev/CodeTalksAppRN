@@ -35,10 +35,7 @@ const Login = ({navigation}) => {
         .then(
             () => {
                 setLoading(false);
-                showMessage({
-                message: 'Giriş yaptın',
-                type:'success',
-                })
+                console.log('Giriş yapıldı.');
             }
         )
         .catch(

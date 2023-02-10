@@ -19,25 +19,46 @@ import {icon,createErrorMessage} from '../../utils/functions';
 
 // Firebase
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+
 
 // Flash message
 import { showMessage } from 'react-native-flash-message';
+
+// Database operations
+import databaseOperations from '../../utils/databaseOperations';
 
 
 const Signup = ({navigation}) => {
     const [loading,setLoading] = useState(false);
 
-    const handleSignup = (values) => {
+  
+      const handleSignup = (values) => {
         const {email,password} = values;
         setLoading(true);
         auth().createUserWithEmailAndPassword(email,password)
         .then(
-            () => {
-                setLoading(false);
-                showMessage({
-                    message: 'Başarıyla kayıt oldunuz',
-                    type: 'success',
+            (credits) => {
+                const {email,phoneNumber,photoURL,emailVerified,uid} = credits.user;
+                const username = email.split('@')[0];
+                firestore()
+                .collection('Users')
+                .doc(username)
+                .set({
+                    uid,
+                    username,
+                    email,
+                    emailVerified,
+                    photoURL,
+                    phoneNumber,
+                    ownRooms: [],
                 })
+                .then(
+                    () => console.log('Kullanıcı eklendi')
+                )
+                .catch(
+                    (err) => console.log(err)
+                )
             }
         )
         .catch(

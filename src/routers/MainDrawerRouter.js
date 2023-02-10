@@ -16,6 +16,9 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 // Navigation header style
 import colors from '../assets/colors';
 
+// Firebase auth
+import auth from '@react-native-firebase/auth';
+
 
 const MainDrawer = ({navigation}) => (
     <Drawer.Navigator
@@ -26,7 +29,7 @@ const MainDrawer = ({navigation}) => (
         headerLeft:false,
         headerTitleAlign:'center',
         headerStyle: {
-            backgroundColor: colors.secondary,
+            backgroundColor: colors.primary,
         },
         headerTintColor: 'white',
         headerRight: () => (
@@ -42,7 +45,10 @@ const MainDrawer = ({navigation}) => (
             <DrawerItem
             label="Logout"
             icon={() => <Icon name='power' size={28} color='red'/>} 
-            onPress={() => console.log('Test')}/>
+            onPress={() => {
+                auth().signOut();
+                console.log('Çıkış yapıldı.');
+            }}/>
           </DrawerContentScrollView>
         )
       }}>
