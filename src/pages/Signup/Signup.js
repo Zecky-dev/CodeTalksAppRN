@@ -25,8 +25,6 @@ import firestore from '@react-native-firebase/firestore';
 // Flash message
 import { showMessage } from 'react-native-flash-message';
 
-// Database operations
-import databaseOperations from '../../utils/databaseOperations';
 
 
 const Signup = ({navigation}) => {

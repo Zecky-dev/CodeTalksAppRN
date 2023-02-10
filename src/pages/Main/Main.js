@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {View,Text, Alert} from 'react-native';
+import {View,Text, Alert, FlatList} from 'react-native';
 
 // Styles
 import styles from './Main.style';
@@ -21,16 +21,56 @@ const Main = () => {
     const [roomName,setRoomName] = useState('');
     const [roomDescription,setRoomDescription] = useState('');
     const [ownRooms,setOwnRooms] = useState();
+    const [otherRooms,setOtherRooms] = useState();
     
     const currentUser = auth().currentUser;
+    const username = currentUser.email.split('@')[0];
+
+    useEffect(
+        () => {
+            firestore().collection('Rooms').where('roomOwner', '==', username).get().then(
+                (snap) => setOwnRooms(snap.docs)
+            );
+            firestore().collection('Rooms').where('roomOwner', '!=', username).get().then(
+                (snap) => setOtherRooms(snap.docs)
+            )
+        }, [ownRooms,otherRooms]
+    )
+    
    
     return (
         <View style={styles.container}>
             {/* Sahip olduğum odalar listesi*/}
-
-
-
+            <View style={{flexDirection: 'row', alignItems: 'center',padding: 8,}}>
+                <View style={{flex: 1, height: 1, backgroundColor: 'black'}} />
+                    <View>
+                        <Text style={{width: 100, textAlign: 'center',fontSize:18}}>Odaların</Text>
+                    </View>
+                <View style={{flex: 1, height: 1, backgroundColor: 'black'}} />
+            </View>
+            <FlatList
+                data={ownRooms}
+                renderItem={({item}) => <RoomBox item={item._data}/>}
+                numColumns={2}
+                style={{flexGrow: 0}}
+            />
             {/* Diğer odalar listesi */}            
+            <View style={{flexDirection: 'row', alignItems: 'center',padding: 8,}}>
+                <View style={{flex: 1, height: 1, backgroundColor: 'black'}} />
+                    <View>
+                        <Text style={{width: 120, textAlign: 'center',fontSize:18}}>Diğer Odalar</Text>
+                    </View>
+                <View style={{flex: 1, height: 1, backgroundColor: 'black'}} />
+            </View>
+            <FlatList
+                data={otherRooms}
+                renderItem={({item}) => <RoomBox item={item._data}/>}
+                numColumns={2}
+                style={{flexGrow: 1}}
+            />
+
+
+            
             <FloatingButton icon={{size:30,name:'plus'}} onPress={()=>setDialogVisible(!dialogVisible)}/>
             {/* Oda oluşturma diyalog kutusu */}
             <Dialog.Container visible={dialogVisible} onBackdropPress={()=>setDialogVisible(false)}>
@@ -77,6 +117,7 @@ const Main = () => {
                                         roomName,
                                         roomDescription,
                                         roomOwner: username,
+                                        roomMessages: {},
                                     })
                                     .then(
                                         (val) => {
@@ -87,33 +128,6 @@ const Main = () => {
                                     )
                                 }
                             })
-
-
-
-                        /*
-                        databaseOperations.readOnce(`users/${username}/ownRooms`,(val) => {
-                            const ownRoomCount = val !== null ? Object.keys(val).length : 0;
-                            let reachedLimit = false;
-                            // Eğer 3 veya 3'ten fazla odaya sahip ise limite ulaştı.
-                            ownRoomCount >= 3 ? reachedLimit = true : reachedLimit = false;
-                            
-                            if(reachedLimit){
-                                Alert.alert("En fazla 3 adet oda oluşturabilirsiniz");
-                            }
-                            // Limite ulaşmadıysa odasını oluştur.
-                            else{
-                                databaseOperations.push('rooms/',{
-                                    roomName,
-                                    roomDescription,
-                                    roomOwner: currentUser.email.split('@')[0],
-                                    roomParticipants: {},
-                                    roomMessages: {},
-                                },(key) => {
-                                    databaseOperations.addChild(`users/${username}/ownRooms`,key,key);
-                                });
-                            }
-                        });
-                        */
                     }
                 }}/>
             </Dialog.Container>

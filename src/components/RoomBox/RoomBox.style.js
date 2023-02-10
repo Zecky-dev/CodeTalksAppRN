@@ -10,6 +10,7 @@ export default StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         backgroundColor: colors.secondary,
+        flex:1,
     },
     roomName: {
         fontSize: 24,
