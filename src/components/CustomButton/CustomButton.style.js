@@ -23,6 +23,8 @@ const baseCircled = {
         width: 50,
         height: 50,
         borderRadius: 25,
+        justifyContent: 'center',
+        alignItems:'center',
     },
 };
 

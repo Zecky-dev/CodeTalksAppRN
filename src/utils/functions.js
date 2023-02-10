@@ -13,6 +13,8 @@ const createErrorMessage = (errCode) => {
             return 'Kullanıcı bulunamadı'
         case 'auth/email-already-in-use':
             return 'E-posta adresi kullanımda'
+        case 'auth/wrong-password':
+            return 'E-posta adresi veya şifre yanlış'
         default:
             return errCode
     }
