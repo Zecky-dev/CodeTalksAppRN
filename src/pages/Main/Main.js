@@ -20,22 +20,44 @@ const Main = () => {
     const [dialogVisible,setDialogVisible] = useState(false);
     const [roomName,setRoomName] = useState('');
     const [roomDescription,setRoomDescription] = useState('');
-    const [ownRooms,setOwnRooms] = useState();
-    const [otherRooms,setOtherRooms] = useState();
+    const [ownRooms,setOwnRooms] = useState([]);
+    const [otherRooms,setOtherRooms] = useState([]);
     
     const currentUser = auth().currentUser;
     const username = currentUser.email.split('@')[0];
 
-    useEffect(
-        () => {
-            firestore().collection('Rooms').where('roomOwner', '==', username).get().then(
-                (snap) => setOwnRooms(snap.docs)
-            );
-            firestore().collection('Rooms').where('roomOwner', '!=', username).get().then(
-                (snap) => setOtherRooms(snap.docs)
-            )
-        }, [ownRooms,otherRooms]
-    )
+    useEffect(() => {
+        firestore().collection('Rooms').where('roomOwner','==',username).onSnapshot(
+            (snapshot) => {
+                const list = [];
+                snapshot.docs.forEach(
+                    (querySnapshot) => {
+                        let data = querySnapshot.data();
+                        list.push(data);
+                    }
+                )
+                setOwnRooms(list);
+            }
+        );
+        firestore().collection('Rooms').where('roomOwner','!=',username).onSnapshot(
+            (snapshot) => {
+                let list = [];
+                if(snapshot.docs.length === 0){
+                    list = [];
+                }                
+                else{
+                    snapshot.docs.forEach(
+                        (querySnapshot) => {
+                            let data = querySnapshot.data();
+                            list.push(data);
+                        }
+                    )
+                    setOtherRooms(list);
+                }    
+            }
+        );
+        
+    },[]);
     
    
     return (
@@ -50,9 +72,9 @@ const Main = () => {
             </View>
             <FlatList
                 data={ownRooms}
-                renderItem={({item}) => <RoomBox item={item._data}/>}
+                renderItem={({item}) => <RoomBox item={item}/>}
                 numColumns={2}
-                style={{flexGrow: 0}}
+                style={{flexGrow:0}}
             />
             {/* Diğer odalar listesi */}            
             <View style={{flexDirection: 'row', alignItems: 'center',padding: 8,}}>
@@ -64,13 +86,10 @@ const Main = () => {
             </View>
             <FlatList
                 data={otherRooms}
-                renderItem={({item}) => <RoomBox item={item._data}/>}
+                renderItem={({item}) => <RoomBox item={item}/>}
                 numColumns={2}
                 style={{flexGrow: 1}}
-            />
-
-
-            
+            />            
             <FloatingButton icon={{size:30,name:'plus'}} onPress={()=>setDialogVisible(!dialogVisible)}/>
             {/* Oda oluşturma diyalog kutusu */}
             <Dialog.Container visible={dialogVisible} onBackdropPress={()=>setDialogVisible(false)}>
@@ -123,7 +142,11 @@ const Main = () => {
                                         (val) => {
                                             firestore().collection('Users').doc(username).update({
                                                 ownRooms: firestore.FieldValue.arrayUnion(val._documentPath._parts[1])
-                                            })
+                                            }).then(
+                                                () => {
+                                                    Alert.alert('Başarılı','Odanız eklendi');
+                                                }
+                                            )
                                         }
                                     )
                                 }
