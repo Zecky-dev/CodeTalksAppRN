@@ -23,6 +23,7 @@ import CustomButton from './components/CustomButton/CustomButton';
 
 // Routers
 import MainDrawerRouter from './routers/MainDrawerRouter';
+import RoomStackRouter from './routers/RoomStackRouter';
 
 
 const App = () => {
@@ -45,6 +46,7 @@ const App = () => {
     const MainStack = () => (
         <Stack.Navigator>
             <Stack.Screen name="MainScreen" component={MainDrawerRouter} options={{headerShown:false}}/>
+            <Stack.Screen name="RoomScreen" component={RoomStackRouter} options={{headerShown:false}}/>
         </Stack.Navigator>   
     )
 

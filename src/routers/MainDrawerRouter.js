@@ -43,7 +43,7 @@ const MainDrawer = ({navigation}) => (
           <DrawerContentScrollView {...props}>
             <DrawerItemList {...props} />
             <DrawerItem
-            label="Logout"
+            label="Çıkış Yap"
             icon={() => <Icon name='power' size={28} color='red'/>} 
             onPress={() => {
                 auth().signOut();
@@ -53,11 +53,11 @@ const MainDrawer = ({navigation}) => (
         )
       }}>
         <Drawer.Screen name="HomePage" component={Main} options={{
-            title: 'Home',
+            title: 'Anasayfa',
             drawerIcon: () => (<Icon name='home' size={28}/>),
         }}/>
         <Drawer.Screen name="ProfilePage" component={Profile} options={{
-            title: 'Profile',
+            title: 'Profil',
             drawerIcon: () => (<Icon name='account' size={28}/>)
         }}/>
     </Drawer.Navigator>
