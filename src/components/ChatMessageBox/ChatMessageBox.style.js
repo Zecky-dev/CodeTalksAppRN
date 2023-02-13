@@ -1,56 +1,61 @@
 import { StyleSheet } from "react-native";
+import { color } from "react-native-reanimated";
 import colors from '../../assets/colors';
 
-const baseContainer= {
-        width: '75%',
-        marginLeft: 8,
-        marginVertical: 8,
-        borderRadius: 8,
-        borderStartWidth:4,
-        borderBottomWidth: 4,
+const baseStyles = {
+   messageContainer: {
         padding: 8,
+        margin: 8,
+        borderRadius: 8,
+   }
 }
 
+
 export default StyleSheet.create({
-    ownerMessage: {
+    messageOwner: {
         container: {
-            ...baseContainer,
-            borderBottomRightRadius: 0,
-            backgroundColor: colors.primary,
+           flexDirection: 'row',
+           justifyContent: 'flex-end',
         },
-        align:{
-            justifyContent: 'flex-end',
-            backgroundColor:'red',
+        messageContainer: {
+           ...baseStyles.messageContainer,
+           backgroundColor: colors.primary,
+           borderBottomRightRadius: 0,
         }
     },
     otherMessage: {
         container: {
-            ...baseContainer,
-            borderBottomLeftRadius: 0,
-            backgroundColor: colors.secondary,
+           flexDirection: 'row',
+           justifyContent: 'flex-start',
         },
-        align: {
-            justifyContent: 'flex-start',
+        messageContainer: {
+           ...baseStyles.messageContainer,
+           backgroundColor: colors.secondary,
+           borderBottomLeftRadius: 0,
         }
     },
 
-
-    
     topContainer: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
     },
-    messageOwner: {
-        color: colors.white,
-        fontWeight: 'bold',
-        fontSize: 16,
 
-    },
-    messageDate: {
+    owner: {
+        fontWeight: 'bold',
         color: colors.white,
-        fontStyle:'italic',
     },
-    messageText: {
-        marginVertical: 4,
+
+    date: {
+        color: colors.silver,
+        fontStyle: 'italic', 
+        marginLeft: 16, 
     },
+
+    message: {
+        color: colors.white,
+    },
+
+    roomOwnerIcon: {
+        marginLeft: 4,
+    }
+
 });
