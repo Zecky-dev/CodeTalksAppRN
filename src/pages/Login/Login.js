@@ -28,25 +28,20 @@ import { showMessage } from 'react-native-flash-message';
 const Login = ({navigation}) => {
     const [loading,setLoading] = useState(false);
 
-    const handleLogin = (values) => {
+    const handleLogin = async (values) => {
         const {email,password} = values;
-        auth()
-        .signInWithEmailAndPassword(email,password)
-        .then(
-            () => {
-                setLoading(false);
-                console.log('Giriş yapıldı.');
-            }
-        )
-        .catch(
-            (err) => {
-                setLoading(false)
-                showMessage({
-                message: createErrorMessage(err.code),
-                type: 'danger',
-                })
+        try {
+            setLoading(true);
+            await auth().signInWithEmailAndPassword(email,password);
+            setLoading(false);
         }
-        )
+        catch(err) {
+            setLoading(false)
+            showMessage({
+            message: createErrorMessage(err.code),
+            type: 'danger',
+            })
+        }
     };
 
 
@@ -75,7 +70,7 @@ const Login = ({navigation}) => {
                                 <Input label="Şifre" icon={{name:'key',size:24}} onChangeText={handleChange('password')} secure/>
                                 {(errors.password && touched.password) && <MessageBox type="warning" message={errors.password}/>}
                                 <Button title="Giriş Yap" onPress={handleSubmit} icon={icon('login',24,'white')} loading={loading}/>
-                                <Button title="Kayıt Ol" onPress={() => navigation.navigate('SignupScreen')} outlined icon={icon('account-plus',24,colors.primary)} loading={loading}/>
+                                <Button title="Kayıt Ol" onPress={() => navigation.navigate('SignupScreen')} outlined icon={icon('account-plus',24,colors.primary)}/>
                             </View>
                         );
                     }

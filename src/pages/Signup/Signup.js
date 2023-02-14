@@ -90,8 +90,23 @@ const Signup = ({navigation}) => {
                 includeBase64: true,
                 includeExtra: true,
             },(response) => {
-                toggleModalVisibility();
-                setFilePath(response.assets[0].uri);
+                if(response.didCancel){
+                    console.log('İptal edildi');
+                }
+                else if(response.errorCode === 'camera_unavailable'){
+                    console.log('Kamera kullanılamıyor')
+                }
+                else if(response.errorCode === "permission"){
+                    console.log('Kamera izni verilmedi')
+                }
+                else if(response.errorCode === "others"){
+                    console.log('Hata: ' + response.errorMessage)
+                }
+                else{
+                    toggleModalVisibility();
+                    setFilePath(response.assets[0].uri);
+                }
+                
             })
         }
     }
@@ -155,6 +170,7 @@ const Signup = ({navigation}) => {
         }
     }
 
+    
     const sendEmailVerification = async () => {
         try{
             await auth().currentUser.sendEmailVerification();
@@ -187,10 +203,6 @@ const Signup = ({navigation}) => {
                 phoneNumber: null,
                 ownRooms: [],
             });
-            showMessage({
-                message: 'Kayıt oldunuz.',
-                type: 'success',
-            });
             setLoading(false);
         }
         catch(err){
@@ -203,51 +215,6 @@ const Signup = ({navigation}) => {
     }
 
 
-
-
-
-
-      // Kayıt olma işlevi
-      /*
-      const handleSignup = (values) => {
-        const {email,password} = values;
-        setLoading(true);
-        auth().createUserWithEmailAndPassword(email,password)
-        .then(
-            (credits) => {
-                const {email,phoneNumber,photoURL,emailVerified,uid} = credits.user;
-                const username = email.split('@')[0];
-                firestore()
-                .collection('Users')
-                .doc(username)
-                .set({
-                    uid,
-                    username,
-                    email,
-                    emailVerified,
-                    photoURL,
-                    phoneNumber,
-                    ownRooms: [],
-                })
-                .then(
-                    () => console.log('Kullanıcı eklendi')
-                )
-                .catch(
-                    (err) => console.log(err)
-                )
-            }
-        )
-        .catch(
-            (err) => {
-                setLoading(false);
-                showMessage({
-                    message: createErrorMessage(err.code),
-                    type: 'danger',
-                })
-            }
-        )
-    }
-    */
 
     return (
         <View style={styles.container}>

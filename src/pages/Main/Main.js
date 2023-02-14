@@ -8,6 +8,7 @@ import styles from './Main.style';
 // Custom components
 import FloatingButton from '../../components/FloatingButton/FloatingButton';
 import RoomBox from '../../components/RoomBox/RoomBox';
+import EmptyList from '../../components/EmptyList/EmptyList';
 
 // Dialog
 import Dialog from 'react-native-dialog';
@@ -142,6 +143,7 @@ const Main = ({navigation}) => {
                 onPress={(room) => {goRoom(room)}}/>}
                 numColumns={2}
                 style={{flexGrow:0}}
+                ListEmptyComponent={() => <EmptyList/>}
             />
 
             {/* Diğer odalar listesi */}            
@@ -151,6 +153,7 @@ const Main = ({navigation}) => {
                 renderItem={({item}) => <RoomBox item={item} onPress={(room) => goRoom(room)}/>}
                 numColumns={2}
                 style={{flexGrow: 1}}
+                ListEmptyComponent={() => (<EmptyList/>)}
             />            
             
 
