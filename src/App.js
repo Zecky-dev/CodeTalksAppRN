@@ -26,8 +26,24 @@ import MainDrawerRouter from './routers/MainDrawerRouter';
 import RoomStackRouter from './routers/RoomStackRouter';
 
 
+
+
 const App = () => {
     const [user,setUser] = useState();
+    const checkEmailVerified = () => {
+        const emailVerified = auth().currentUser.emailVerified;
+        if(emailVerified){
+            return true;
+        }
+        else{
+            showMessage({
+                message: 'E-posta adresinize gönderilen doğrulamayı yapınız.',
+                type: 'warning',
+            });
+            return false;
+        }
+    }
+    
     function onAuthStateChanged(user){
         setUser(user);
     }

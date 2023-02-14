@@ -154,6 +154,19 @@ const Signup = ({navigation}) => {
             return null;
         }
     }
+
+    const sendEmailVerification = async () => {
+        try{
+            await auth().currentUser.sendEmailVerification();
+            showMessage({
+                message: 'Doğrulama e-postası gönderildi, e-posta adresini kontrol et.',
+                type:'info',
+            });
+        }
+        catch(err){
+            console.log('Hata: ' + err);
+        }
+    }
     
 
     // Kayıt olma
@@ -161,6 +174,7 @@ const Signup = ({navigation}) => {
         setLoading(true);
         try {
             const credits = await auth().createUserWithEmailAndPassword(values.email,values.password);
+            sendEmailVerification();
             const {email,emailVerified,uid} = credits.user;
             const username = email.split('@')[0];
             const imageURL = await uploadImage(filePath,username,'avatars');

@@ -11,7 +11,7 @@ import { FlatList } from 'react-native-gesture-handler';
 import ChatMessageBox from '../../components/ChatMessageBox/ChatMessageBox';
 import ChatInput from '../../components/ChatInputBox/ChatInput';
 
-const Room = ({route}) => {    
+const Room = ({navigation,route}) => {    
     const room = route.params.room;
     const roomOwner = room.roomOwner;
     const [messages,setMessages] = useState();
@@ -24,8 +24,14 @@ const Room = ({route}) => {
             .doc(room.roomID)
             .onSnapshot(
                 snapshot => {
-                    let data = snapshot.data().roomMessages;
-                    setMessages(data);
+                    if(snapshot.data() === undefined) {
+                        Alert.alert('Oda bulunamadı','Oda, oda sahibi tarafından kapatıldı');
+                        navigation.goBack();
+                    }
+                    else{
+                        let data = snapshot.data().roomMessages;
+                        setMessages(data);
+                    }
                 }
             );
             return () => subscriber();
@@ -33,7 +39,7 @@ const Room = ({route}) => {
     )
     
     const sendMessage = (message) => {
-        if(message.length === 0){
+        if(message.trim().length === 0){
             Alert.alert('Uyarı','Mesajınız boş olamaz!');
         }
         else{
@@ -66,6 +72,8 @@ const Room = ({route}) => {
                         <ChatMessageBox message={message} roomOwner={roomOwner}/>
                     )
                 }}
+                inverted
+                contentContainerStyle={{ flexDirection: 'column-reverse' }}
             />
            <ChatInput sendMessage={sendMessage}/>
 

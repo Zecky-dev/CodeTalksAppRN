@@ -48,6 +48,7 @@ const Main = ({navigation}) => {
                 let list = [];
                 if(snapshot.docs.length === 0){
                     list = [];
+                    setOtherRooms(list);
                 }                
                 else{
                     snapshot.docs.forEach(

@@ -1,20 +1,20 @@
 import { StyleSheet } from "react-native";
+import colors from '../../assets/colors';
 
 const baseText = {
-    marginLeft: 4,
-    fontSize: 17,
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: colors.black,
 };
 
 export default StyleSheet.create({
     container: {
         justifyContent: 'center',
         alignItems:'center',
-        margin: 32,
+        margin: 24,
         backgroundColor: 'white',
         flex:1,
-        justifyContent: 'flex-start',
-        padding: 16,
-        borderRadius: 24,
+        borderRadius: 18,
     },
 
     profilePhoto: {
@@ -23,10 +23,9 @@ export default StyleSheet.create({
         borderRadius: 75,
     },
     fieldContainer: {
-        flexDirection:'row',
         justifyContent:'center',
         alignItems:'center',
-        marginVertical: 4,
+        marginVertical: 8,
     },
 
     infoContainer: {
@@ -52,7 +51,15 @@ export default StyleSheet.create({
     emailVerified: {
         ...baseText,  
         textAlign:'center',
-        fontSize: 16,
+        fontSize: 18,
+        color: colors.green,
+    },
+
+    emailNotVerified: {
+        ...baseText,  
+        textAlign:'center',
+        fontSize: 18,
+        color: colors.red,
     }
 
 });
