@@ -1646,6 +1646,11 @@
   resolved "https://registry.npmjs.org/@react-native-firebase/firestore/-/firestore-17.1.0.tgz"
   integrity sha512-RSTjRevPkXaepuyJgwsAxMcTEDLu/8DnjL8qkNEBj/TeNY4Fkl1Dk722IiggxDrJdTC4WsA3U1C+9iV5WaaD9g==
 
+"@react-native-firebase/storage@^17.1.0":
+  version "17.1.0"
+  resolved "https://registry.npmjs.org/@react-native-firebase/storage/-/storage-17.1.0.tgz"
+  integrity sha512-aj16L1rhIUed5ZEgp1bi7yB9Bh5v5P35YYELGG7vDePtciWm6L5ss574wYgjCgMV0hrAwm8o2DvpJ6rMlO47Kg==
+
 "@react-native/assets@1.0.0":
   version "1.0.0"
   resolved "https://registry.npmjs.org/@react-native/assets/-/assets-1.0.0.tgz"
@@ -6297,6 +6302,11 @@ react-native-gradle-plugin@^0.0.7:
   version "0.0.7"
   resolved "https://registry.npmjs.org/react-native-gradle-plugin/-/react-native-gradle-plugin-0.0.7.tgz"
   integrity sha512-+4JpbIx42zGTONhBTIXSyfyHICHC29VTvhkkoUOJAh/XHPEixpuBduYgf6Y4y9wsN1ARlQhBBoptTvXvAFQf5g==
+
+react-native-image-picker@^5.0.2:
+  version "5.0.2"
+  resolved "https://registry.npmjs.org/react-native-image-picker/-/react-native-image-picker-5.0.2.tgz"
+  integrity sha512-kl5g22TEiOkHcwKFh+BjdBYb+7LTq0yKXZCjgXCPoHbq7QwckgR4mFASPPoX2RUKGFy6cYqJGc0IX+xpqcSX5w==
 
 react-native-iphone-screen-helper@^2.0.2:
   version "2.0.3"
