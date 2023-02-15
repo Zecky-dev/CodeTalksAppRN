@@ -3,6 +3,7 @@ import {View,Text} from 'react-native';
 import styles from './ChatMessageBox.style';
 
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import moment from 'moment';
 import 'moment/locale/tr';
@@ -14,6 +15,8 @@ const ChatMessageBox = ({message,roomOwner}) => {
     const isMessageOwner = username === message.messageOwner ? true : false;
     const isRoomOwner = message.messageOwner === roomOwner ? true : false;
     const date = moment(message.messageCreateDate).format('DD MMM YYYY - HH:mm')
+
+    
     return (
         <View style={
             isMessageOwner 

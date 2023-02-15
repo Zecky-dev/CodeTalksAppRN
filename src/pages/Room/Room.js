@@ -30,7 +30,7 @@ const Room = ({navigation,route}) => {
                     }
                     else{
                         let data = snapshot.data().roomMessages;
-                        setMessages(data);
+                        setMessages(data.reverse());
                     }
                 }
             );
@@ -73,7 +73,6 @@ const Room = ({navigation,route}) => {
                     )
                 }}
                 inverted
-                contentContainerStyle={{ flexDirection: 'column-reverse' }}
             />
            <ChatInput sendMessage={sendMessage}/>
 
