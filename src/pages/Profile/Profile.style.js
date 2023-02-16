@@ -1,65 +1,62 @@
 import { StyleSheet } from "react-native";
 import colors from '../../assets/colors';
 
-const baseText = {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: colors.black,
-};
-
 export default StyleSheet.create({
     container: {
-        justifyContent: 'center',
         alignItems:'center',
-        margin: 24,
-        backgroundColor: 'white',
-        flex:1,
-        borderRadius: 18,
+        flex: 1,
+        justifyContent:'center',
+    },  
+    profileContainer: {
+        marginVertical: 16,
+        marginHorizontal: 8,
+        padding: 16,
+        borderRadius: 8,
+        backgroundColor:'white',
     },
-
-    profilePhoto: {
-        width: 130,
-        height: 130,
-        borderRadius: 75,
+    imageContainer: {
+        alignItems:'center',
+    },
+    settingsContainer: {
+        flexDirection:'row',
+        justifyContent:'flex-end',
     },
     fieldContainer: {
-        justifyContent:'center',
-        alignItems:'center',
-        marginVertical: 8,
+        flexDirection:'column',
+        marginVertical: 6,
+        alignItems:'stretch',
+        minWidth: 300,
     },
-
-    infoContainer: {
-        marginVertical: 8,
+    fieldText:{
+        fontSize: 17,
     },
-
-    emailField: {
-        flexDirection: 'column',
+    fieldTitle: {
+        color: colors.black,
+        fontWeight:'bold',
+        fontSize: 18,
     },
-
-    username: {
-        ...baseText,      
+    profileImage: {
+        width: 120,
+        height: 120,
+        borderRadius: 60,
     },
-
-    email: {
-        ...baseText,  
-    },
-
-    phoneNumber: {
-        ...baseText,  
-    },
-
     emailVerified: {
-        ...baseText,  
-        textAlign:'center',
-        fontSize: 18,
-        color: colors.green,
+        fontWeight:'bold',
+        color: 'green',
+        marginLeft: 8,
     },
-
     emailNotVerified: {
-        ...baseText,  
-        textAlign:'center',
-        fontSize: 18,
-        color: colors.red,
+        fontWeight:'bold',
+        color: 'red',
+        marginLeft: 8,
+    },
+    editInputContainer: {
+        borderWidth: 0.7,
+        color: 'gray',
+        marginTop:6,
+    },
+    editInput: {
+        width: '100%',
     }
 
 });

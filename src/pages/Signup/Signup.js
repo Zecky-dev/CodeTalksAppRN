@@ -194,6 +194,16 @@ const Signup = ({navigation}) => {
             const {email,emailVerified,uid} = credits.user;
             const username = email.split('@')[0];
             const imageURL = await uploadImage(filePath,username,'avatars');
+            auth().currentUser.updateProfile({
+                photoURL: imageURL
+            }).catch(
+                (err) => {
+                    showMessage({
+                        message: `Kullanıcı fotoğrafı güncellenirken hata oluştu : ${err}` ,
+                        type: 'danger'
+                    })
+                }
+            )
             await firestore().collection('Users').doc(username).set({
                 uid,
                 username,
